@@ -90,14 +90,30 @@ server<- function(input, output, session) {
   m_effect <- ocME(model)
   m_effect$out
   
-  me <- data.frame(var,m_effect$out)
-  
-  output$m_effect <- renderTable({
+  me1 <- data.frame(var,m_effect$out$ME.1)
+  output$me1 <- renderTable({
     if (input$submitbutton>0) { 
-      isolate(me) 
+      isolate(me1)
+    }
+  })
+  me2 <- data.frame(var,m_effect$out$ME.2)
+  output$me2 <- renderTable({
+    if (input$submitbutton>0) { 
+      isolate(me2)
     } 
   })
-  
+  me3 <- data.frame(var,m_effect$out$ME.3)
+  output$me3 <- renderTable({
+    if (input$submitbutton>0) { 
+      isolate(me3)
+    } 
+  })
+  meALL <- data.frame(var,m_effect$out$ME.all)
+  output$meALL <- renderTable({
+    if (input$submitbutton>0) { 
+      isolate(meALL)
+    } 
+  })
   # Mean Predicted Probabilities
   predicted <- predict(model, type = "probs")
   
